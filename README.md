@@ -2,7 +2,7 @@
 
 An AI-powered question and answer platform built with React and TypeScript. Users can create rooms, ask questions, and receive AI-generated responses in an intuitive interface.
 
-![App Overview](./docs/app-overview.png)
+![App Overview](./public/homepage.png)
 
 ## 🚀 Features
 
@@ -11,7 +11,7 @@ An AI-powered question and answer platform built with React and TypeScript. User
 - **Real-time Updates**: Dynamic question and answer display
 - **Modern UI**: Clean, responsive interface with TailwindCSS
 
-![Room Interface](./docs/room-interface.png)
+![Questions List Interface](./public/questions-list-page.png)
 
 ## 🛠️ Tech Stack
 
