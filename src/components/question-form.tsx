@@ -47,7 +47,9 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
 
   async function handleCreateQuestion(data: CreateQuestionFormData) {
     await createQuestion(data);
+    form.reset();
   }
+  const { isSubmitting } = form.formState;
 
   return (
     <Card>
@@ -74,6 +76,7 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
                       className="min-h-[100px]"
                       placeholder="What do you want to know?"
                       {...field}
+                      disabled={isSubmitting}
                     />
                   </FormControl>
                   <FormMessage />
@@ -81,7 +84,9 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
               )}
             />
 
-            <Button type="submit">Send question</Button>
+            <Button disabled={isSubmitting} type="submit">
+              Send question
+            </Button>
           </form>
         </Form>
       </CardContent>
