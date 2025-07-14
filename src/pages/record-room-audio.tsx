@@ -1,6 +1,8 @@
 /** biome-ignore-all lint/suspicious/noConsole: <for development> */
+
+import { ArrowLeft } from 'lucide-react';
 import { useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 // Verify if user browser has support for media recording
@@ -17,12 +19,17 @@ export function RecordRoomAudio() {
   const params = useParams<RoomParams>();
   const [isRecording, setIsRecording] = useState(false);
   const recorder = useRef<MediaRecorder | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout>(null);
 
   function stopRecording() {
     setIsRecording(false);
 
     if (recorder.current && recorder.current.state !== 'inactive') {
       recorder.current.stop();
+    }
+
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
     }
   }
 
@@ -44,6 +51,29 @@ export function RecordRoomAudio() {
     console.log(result);
   }
 
+  function createRecorder(audio: MediaStream) {
+    recorder.current = new MediaRecorder(audio, {
+      mimeType: 'audio/webm',
+      audioBitsPerSecond: 64_000,
+    });
+
+    recorder.current.ondataavailable = (event) => {
+      if (event.data.size > 0) {
+        uploadAudio(event.data);
+      }
+    };
+
+    recorder.current.onstart = () => {
+      console.log('Gravação iniciada!');
+    };
+
+    recorder.current.onstop = () => {
+      console.log('Gravação encerrada/pausada');
+    };
+
+    recorder.current.start();
+  }
+
   async function startRecording() {
     if (!isRecordingSupported) {
       alert('Yor browser does not support audio recording.');
@@ -59,36 +89,35 @@ export function RecordRoomAudio() {
       },
     });
 
-    recorder.current = new MediaRecorder(audio, {
-      mimeType: 'audio/webm',
-      audioBitsPerSecond: 64_000,
-    });
+    createRecorder(audio);
 
-    recorder.current.ondataavailable = (event) => {
-      if (event.data.size > 0) {
-        uploadAudio(event.data);
-      }
-    };
-
-    recorder.current.onstart = () => {
-      console.log('Recording started');
-    };
-
-    recorder.current.onstop = () => {
-      console.log('Recording stoped/paused');
-    };
-
-    recorder.current.start();
+    intervalRef.current = setInterval(() => {
+      recorder.current?.stop();
+      createRecorder(audio);
+    }, 5000);
   }
-  return (
-    <div className="flex h-screen flex-col items-center justify-center gap-3">
-      {isRecording ? (
-        <Button onClick={stopRecording}> Stop audio</Button>
-      ) : (
-        <Button onClick={startRecording}> Record audio</Button>
-      )}
 
-      {isRecording ? <p>Recording ...</p> : <p>Paused</p>}
+  if (!params.roomId) {
+    return <Navigate replace to="/" />;
+  }
+
+  return (
+    <div className="p-4">
+      <Link to={`/room/${params.roomId}`}>
+        <Button className="flex items-center gap-2" variant="outline">
+          <ArrowLeft className="size-4" />
+          Back to room
+        </Button>
+      </Link>
+      <div className="flex h-screen flex-col items-center justify-center gap-3">
+        {isRecording ? (
+          <Button onClick={stopRecording}> Stop audio</Button>
+        ) : (
+          <Button onClick={startRecording}> Record audio</Button>
+        )}
+
+        {isRecording ? <p>Recording ...</p> : <p>Paused</p>}
+      </div>
     </div>
   );
 }
