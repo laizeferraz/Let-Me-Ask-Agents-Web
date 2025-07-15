@@ -11,8 +11,17 @@ import {
   CardTitle,
 } from './ui/card';
 
-export function RoomList() {
+interface RoomListProps {
+  currentPage: number;
+  itemsPerPage: number;
+}
+
+export function RoomList({ currentPage, itemsPerPage }: RoomListProps) {
   const { data, isLoading, error } = useRooms();
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedRooms = data?.slice(startIndex, endIndex) || [];
 
   return (
     <Card>
@@ -31,7 +40,12 @@ export function RoomList() {
             informed to fix this. Sorry for any inconvenience.{' '}
           </p>
         )}
-        {data?.map((room) => {
+        {!(isLoading || error) && paginatedRooms.length === 0 && (
+          <p className="py-8 text-center text-muted-foreground text-sm">
+            No rooms found.
+          </p>
+        )}
+        {paginatedRooms?.map((room) => {
           return (
             <Link
               className="flex items-center justify-between rounded-lg border p-3 hover:bg-accent/50"
