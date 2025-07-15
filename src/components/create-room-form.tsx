@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod/v4';
 import { useCreateRoom } from '@/http/use-create-room';
 import { Button } from './ui/button';
@@ -32,6 +32,7 @@ const createRoomSchema = z.object({
 type CreateRoomFormData = z.infer<typeof createRoomSchema>;
 
 export function CreateRoomForm() {
+  const navigate = useNavigate();
   const { mutateAsync: createRoom } = useCreateRoom();
   const createRoomForm = useForm<CreateRoomFormData>({
     resolver: zodResolver(createRoomSchema),
@@ -46,8 +47,8 @@ export function CreateRoomForm() {
       name,
       description,
     });
-
     createRoomForm.reset();
+    navigate('room-list');
   }
   return (
     <Card>

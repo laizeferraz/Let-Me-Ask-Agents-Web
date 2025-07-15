@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import type { GetRoomsResponse } from '@/http/types/get-rooms-response';
 import { useRooms } from '@/http/use-rooms';
 import { dayjs } from '@/lib/dayjs';
 import { Badge } from './ui/badge';
@@ -14,14 +15,15 @@ import {
 interface RoomListProps {
   currentPage: number;
   itemsPerPage: number;
+  rooms: GetRoomsResponse;
 }
 
-export function RoomList({ currentPage, itemsPerPage }: RoomListProps) {
-  const { data, isLoading, error } = useRooms();
+export function RoomList({ currentPage, itemsPerPage, rooms }: RoomListProps) {
+  const { isLoading, error } = useRooms();
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedRooms = data?.slice(startIndex, endIndex) || [];
+  const paginatedRooms = rooms?.slice(startIndex, endIndex) || [];
 
   return (
     <Card>
@@ -56,7 +58,7 @@ export function RoomList({ currentPage, itemsPerPage }: RoomListProps) {
                 <h3 className="font-medium">{room.name}</h3>
                 <div className="flex items-center gap-2">
                   <Badge className="text-xs" variant="outline">
-                    {dayjs(room.createdAt).toNow()}
+                    {dayjs(room.createdAt).fromNow()}
                   </Badge>
                   <Badge className="text-xs" variant="secondary">
                     {room.questionsCount} question(s)
