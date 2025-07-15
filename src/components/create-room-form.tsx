@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { z } from 'zod/v4';
 import { useCreateRoom } from '@/http/use-create-room';
 import { Button } from './ui/button';
@@ -7,6 +8,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from './ui/card';
@@ -19,6 +21,7 @@ import {
   FormMessage,
 } from './ui/form';
 import { Input } from './ui/input';
+import { Separator } from './ui/separator';
 import { Textarea } from './ui/textarea';
 
 const createRoomSchema = z.object({
@@ -96,6 +99,17 @@ export function CreateRoomForm() {
           </form>
         </Form>
       </CardContent>
+      <Separator className="mt-4" />
+      <CardFooter className="flex flex-col">
+        <p className="text-muted-foreground text-xs">or enter in a room</p>
+        <div className="mt-4 w-full">
+          <Link to="/room-list">
+            <Button className="w-full" variant="outline">
+              Go to room list
+            </Button>
+          </Link>
+        </div>
+      </CardFooter>
     </Card>
   );
 }
