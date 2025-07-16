@@ -11,7 +11,7 @@ An AI-powered question and answer platform built with React and TypeScript. User
 - **Real-time Updates**: Dynamic question and answer display
 - **Modern UI**: Clean, responsive interface with TailwindCSS
 
-![Room List Interface](./public/room-list.png)
+![Room List Interface](./public/rooms-list.png)
 
 ## 🛠️ Tech Stack
 
@@ -144,7 +144,7 @@ import { Button } from '@/components/ui/button'
 - **CSS Variables** - Theme customization
 - **Responsive Design** - Mobile-first approach
 
-![Question Interface](./docs/room-questions.png)
+![Question Interface](./public/room-questions.png)
 
 ## 🤝 Contributing
 
