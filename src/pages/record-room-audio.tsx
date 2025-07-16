@@ -102,7 +102,10 @@ export function RecordRoomAudio() {
   }
 
   return (
-    <div className="p-4">
+    <div
+      className="bg-contain bg-no-repeat p-4"
+      style={{ backgroundImage: 'url(/polygon.png)' }}
+    >
       <Link to={`/room/${params.roomId}`}>
         <Button className="flex items-center gap-2" variant="outline">
           <ArrowLeft className="size-4" />

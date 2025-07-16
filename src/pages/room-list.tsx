@@ -20,7 +20,10 @@ export const RoomListPage = () => {
   const hasNextPage = currentPage < totalPages;
   const hasPreviousPage = currentPage > 1;
   return (
-    <div className="p-4">
+    <div
+      className="bg-contain bg-no-repeat p-4"
+      style={{ backgroundImage: 'url(/polygon.png)' }}
+    >
       <header>
         <Link to="/">
           <div

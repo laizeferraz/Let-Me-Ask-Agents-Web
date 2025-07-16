@@ -3,7 +3,10 @@ import { CreateRoomForm } from '@/components/create-room-form';
 
 export const Home = () => {
   return (
-    <div className="p-4">
+    <div
+      className="bg-contain bg-no-repeat p-4"
+      style={{ backgroundImage: 'url(/polygon.png)' }}
+    >
       <header>
         <Link to="./">
           <div

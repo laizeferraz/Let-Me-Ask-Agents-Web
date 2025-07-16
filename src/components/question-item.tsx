@@ -42,7 +42,7 @@ export function QuestionItem({ question }: QuestionItemProps) {
                 </div>
               </div>
               <div className="flex-1">
-                <p className="mb-1 font-medium text-foreground">IA response</p>
+                <p className="mb-1 font-medium text-foreground">AI response</p>
                 <div className="text-muted-foreground">
                   {question.isGeneratingAnswer ? (
                     <div className="flex items-center space-x-2">

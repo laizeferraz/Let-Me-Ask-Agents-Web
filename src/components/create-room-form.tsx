@@ -55,7 +55,7 @@ export function CreateRoomForm() {
       <CardHeader>
         <CardTitle>Create Room</CardTitle>
         <CardDescription>
-          Create a new room to start your own Q&A live session and use I.A. to
+          Create a new room to start your own Q&A live session and use A.I. to
           help you answer questions about topic already discussed inside the
           room previously.
         </CardDescription>
