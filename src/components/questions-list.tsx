@@ -1,3 +1,4 @@
+import { useHighlightQuestion } from '@/http/use-highlight-question';
 import { useRoomQuestions } from '@/http/use-room-questions';
 import { QuestionItem } from './question-item';
 
@@ -7,6 +8,18 @@ interface QuestionListProps {
 
 export function QuestionsList(props: QuestionListProps) {
   const { data } = useRoomQuestions(props.roomId);
+  const highlightQuestionMutation = useHighlightQuestion(props.roomId);
+
+  const handleHighlightQuestion = (questionId: string) => {
+    // Get current question state to toggle
+    const currentQuestion = data?.find((q) => q.id === questionId);
+
+    highlightQuestionMutation.mutate({
+      questionId,
+      isQuestionAnswered: !currentQuestion?.isQuestionAnswered,
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -15,7 +28,13 @@ export function QuestionsList(props: QuestionListProps) {
         </h2>
       </div>
       {data?.map((question) => {
-        return <QuestionItem key={question.id} question={question} />;
+        return (
+          <QuestionItem
+            key={question.id}
+            onHighlightQuestion={handleHighlightQuestion}
+            question={question}
+          />
+        );
       })}
     </div>
   );

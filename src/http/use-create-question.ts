@@ -38,6 +38,7 @@ export function useCreateQuestion(roomId: string) {
         answer: null,
         createdAt: new Date().toISOString(),
         isGeneratingAnswer: true,
+        isQuestionAnswered: false,
       };
 
       queryClient.setQueryData<GetRoomQuestionsResponse>(
