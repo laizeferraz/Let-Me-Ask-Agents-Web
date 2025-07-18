@@ -1,4 +1,4 @@
-export type HighlightQuestionResponse = {
+export type HighlightAnsweredQuestionRequest = {
   questionId: string;
   isQuestionAnswered: boolean;
 };

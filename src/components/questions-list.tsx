@@ -1,4 +1,4 @@
-import { useHighlightQuestion } from '@/http/use-highlight-question';
+import { useHighlightAnsweredQuestion } from '@/http/use-question-answered';
 import { useRoomQuestions } from '@/http/use-room-questions';
 import { QuestionItem } from './question-item';
 
@@ -8,7 +8,7 @@ interface QuestionListProps {
 
 export function QuestionsList(props: QuestionListProps) {
   const { data } = useRoomQuestions(props.roomId);
-  const highlightQuestionMutation = useHighlightQuestion(props.roomId);
+  const highlightQuestionMutation = useHighlightAnsweredQuestion(props.roomId);
 
   const handleHighlightQuestion = (questionId: string) => {
     // Get current question state to toggle
