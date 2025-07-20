@@ -3,7 +3,7 @@ import type { GetRoomQuestionsResponse } from './types/get-room-questions-respon
 import type { MarkQuestionAsAnsweredRequest } from './types/question-answered-request';
 import type { MarkQuestionAsAnsweredResponse } from './types/question-answered-response';
 
-export function useHighlightAnsweredQuestion(roomId: string) {
+export function useMarkQuestionAsAnswered(roomId: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
