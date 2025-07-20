@@ -20,16 +20,16 @@ interface Question {
 
 interface QuestionItemProps {
   question: Question;
-  onHighlightQuestion?: (questionId: string) => void;
+  onMarkQuestionAsAnswered?: (questionId: string) => void;
 }
 
 export function QuestionItem({
   question,
-  onHighlightQuestion,
+  onMarkQuestionAsAnswered,
 }: QuestionItemProps) {
-  const handleHighlightQuestion = () => {
-    if (onHighlightQuestion) {
-      onHighlightQuestion(question.id);
+  const handleMarkQuestionAsAnswered = () => {
+    if (onMarkQuestionAsAnswered) {
+      onMarkQuestionAsAnswered(question.id);
     }
   };
 
@@ -100,7 +100,7 @@ export function QuestionItem({
                 className={
                   question.isQuestionAnswered ? 'hidden' : 'cursor-pointer'
                 }
-                onClick={handleHighlightQuestion}
+                onClick={handleMarkQuestionAsAnswered}
                 type="button"
               >
                 <SquareCheckBig className="hover:-translate-y-1 size-4 text-foreground transition delay-150 duration-300 ease-in-out hover:scale-110 hover:text-foreground/50" />

@@ -1,4 +1,4 @@
-import { useHighlightAnsweredQuestion } from '@/http/use-question-answered';
+import { useMarkQuestionAsAnswered } from '@/http/use-question-answered';
 import { useRoomQuestions } from '@/http/use-room-questions';
 import { QuestionItem } from './question-item';
 
@@ -8,13 +8,15 @@ interface QuestionListProps {
 
 export function QuestionsList(props: QuestionListProps) {
   const { data } = useRoomQuestions(props.roomId);
-  const highlightQuestionMutation = useHighlightAnsweredQuestion(props.roomId);
+  const markQuestionAsAnsweredMutation = useMarkQuestionAsAnswered(
+    props.roomId
+  );
 
-  const handleHighlightQuestion = (questionId: string) => {
+  const handleMarkQuestionAsAnswered = (questionId: string) => {
     // Get current question state to toggle
     const currentQuestion = data?.find((q) => q.id === questionId);
 
-    highlightQuestionMutation.mutate({
+    markQuestionAsAnsweredMutation.mutate({
       questionId,
       isQuestionAnswered: !currentQuestion?.isQuestionAnswered,
     });
@@ -31,7 +33,7 @@ export function QuestionsList(props: QuestionListProps) {
         return (
           <QuestionItem
             key={question.id}
-            onHighlightQuestion={handleHighlightQuestion}
+            onMarkQuestionAsAnswered={handleMarkQuestionAsAnswered}
             question={question}
           />
         );

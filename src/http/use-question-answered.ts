@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { GetRoomQuestionsResponse } from './types/get-room-questions-response';
-import type { HighlightAnsweredQuestionRequest } from './types/question-answered-request';
-import type { HighlightAnsweredQuestionResponse } from './types/question-answered-response';
+import type { MarkQuestionAsAnsweredRequest } from './types/question-answered-request';
+import type { MarkQuestionAsAnsweredResponse } from './types/question-answered-response';
 
 export function useHighlightAnsweredQuestion(roomId: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: HighlightAnsweredQuestionRequest) => {
+    mutationFn: async (data: MarkQuestionAsAnsweredRequest) => {
       const response = await fetch(
         `http://localhost:3333/rooms/${roomId}/questions/${data.questionId}/highlight`,
         {
@@ -19,7 +19,7 @@ export function useHighlightAnsweredQuestion(roomId: string) {
         }
       );
 
-      const result: HighlightAnsweredQuestionResponse = await response.json();
+      const result: MarkQuestionAsAnsweredResponse = await response.json();
       return result;
     },
 

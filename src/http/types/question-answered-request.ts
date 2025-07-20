@@ -1,4 +1,4 @@
-export type HighlightAnsweredQuestionRequest = {
+export type MarkQuestionAsAnsweredRequest = {
   questionId: string;
   isQuestionAnswered: boolean;
 };
