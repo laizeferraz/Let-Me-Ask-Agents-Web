@@ -1,5 +1,6 @@
 import {
   Bot,
+  Check,
   Loader2,
   MessageSquare,
   MessagesSquare,
@@ -21,11 +22,15 @@ interface Question {
 interface QuestionItemProps {
   question: Question;
   onMarkQuestionAsAnswered?: (questionId: string) => void;
+  onHighlightQuestion?: (questionId: string) => void;
+  isHighlighted?: boolean;
 }
 
 export function QuestionItem({
   question,
   onMarkQuestionAsAnswered,
+  onHighlightQuestion,
+  isHighlighted = false,
 }: QuestionItemProps) {
   const handleMarkQuestionAsAnswered = () => {
     if (onMarkQuestionAsAnswered) {
@@ -33,15 +38,20 @@ export function QuestionItem({
     }
   };
 
+  const handleHighlightQuestion = () => {
+    if (onHighlightQuestion) {
+      onHighlightQuestion(question.id);
+    }
+  };
+
   return (
     <Card
-      className={
+      className={`${
         question.isQuestionAnswered ? 'bg-primary/25 ring-2 ring-primary' : ''
-      }
+      } ${isHighlighted ? 'ring-2 ring-sky-500 dark:bg-sky-950/20' : ''}`}
     >
       <CardContent>
         <div className="space-y-4">
-          {/* Question */}
           <div className="flex items-start space-x-3">
             <div className="flex-shrink-0">
               <div className="flex size-8 items-center justify-center rounded-full bg-primary/10">
@@ -55,11 +65,17 @@ export function QuestionItem({
                   {question.question}
                 </p>
               </div>
-              <div className={question.isQuestionAnswered ? 'hidden' : ''}>
-                <button className="cursor-pointer" type="button">
+              {question.isQuestionAnswered ? (
+                <Check className="size-4" />
+              ) : (
+                <button
+                  className="cursor-pointer"
+                  onClick={handleHighlightQuestion}
+                  type="button"
+                >
                   <MessagesSquare className="hover:-translate-y-1 size-4 text-foreground transition delay-150 duration-300 ease-in-out hover:scale-110 hover:text-foreground/50" />
                 </button>
-              </div>
+              )}
             </div>
           </div>
 

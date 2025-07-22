@@ -1,3 +1,4 @@
+import { useHighlightQuestions } from '@/http/use-highlight-question';
 import { useMarkQuestionAsAnswered } from '@/http/use-question-answered';
 import { useRoomQuestions } from '@/http/use-room-questions';
 import { QuestionItem } from './question-item';
@@ -11,6 +12,7 @@ export function QuestionsList(props: QuestionListProps) {
   const markQuestionAsAnsweredMutation = useMarkQuestionAsAnswered(
     props.roomId
   );
+  const { toggleHighlight, isHighlighted } = useHighlightQuestions();
 
   const handleMarkQuestionAsAnswered = (questionId: string) => {
     // Get current question state to toggle
@@ -20,6 +22,10 @@ export function QuestionsList(props: QuestionListProps) {
       questionId,
       isQuestionAnswered: !currentQuestion?.isQuestionAnswered,
     });
+  };
+
+  const handleHighlightQuestion = (questionId: string) => {
+    toggleHighlight(questionId);
   };
 
   return (
@@ -32,7 +38,9 @@ export function QuestionsList(props: QuestionListProps) {
       {data?.map((question) => {
         return (
           <QuestionItem
+            isHighlighted={isHighlighted(question.id)}
             key={question.id}
+            onHighlightQuestion={handleHighlightQuestion}
             onMarkQuestionAsAnswered={handleMarkQuestionAsAnswered}
             question={question}
           />
