@@ -30,7 +30,7 @@ export function Room() {
           />
         </Link>
       </header>
-      <div className="container mx-auto mt-40 max-w-4xl px-4">
+      <div className="container mx-auto mt-20 max-w-4xl px-4 md:mt-40">
         <div className="mb-8">
           <div className="mb-10 flex items-center justify-between">
             <Link to="/room-list">

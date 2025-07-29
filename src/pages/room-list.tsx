@@ -34,7 +34,7 @@ export const RoomListPage = () => {
           />
         </Link>
       </header>
-      <div className="mx-auto grid min-h-screen max-w-4xl grid-cols-1 items-center justify-center p-4">
+      <div className="mx-auto mt-20 grid min-h-screen max-w-4xl grid-cols-1 items-center justify-center p-4 md:mt-40">
         <RoomList
           currentPage={currentPage}
           itemsPerPage={ITEMS_PER_PAGE}
