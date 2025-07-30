@@ -17,7 +17,7 @@ export const Home = () => {
           />
         </Link>
       </header>
-      <div className="mx-auto grid min-h-screen max-w-4xl grid-cols-1 items-center justify-center gap-4 p-4 md:grid-cols-2">
+      <div className="mx-auto grid min-h-screen max-w-4xl grid-cols-1 items-center justify-center gap-4 bg-[url('/illustration.svg')] bg-contain bg-top bg-no-repeat p-4 md:grid-cols-2 md:bg-none">
         <aside className="hidden flex-col md:flex">
           <div
             className="bg-contain bg-no-repeat p-37"
@@ -30,7 +30,9 @@ export const Home = () => {
             Learn and share knowledge with other people with A.I. help.
           </p>
         </aside>
-        <CreateRoomForm />
+        <div className="mt-10 md:mt-0">
+          <CreateRoomForm />
+        </div>
       </div>
     </div>
   );
