@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { API_URL } from '@/lib/api';
 
 // Verify if user browser has support for media recording
 const isRecordingSupported =
@@ -38,13 +39,10 @@ export function RecordRoomAudio() {
 
     formData.append('file', audio, 'audio.webm');
 
-    const response = await fetch(
-      `http://localhost:3333/rooms/${params.roomId}/audio`,
-      {
-        method: 'POST',
-        body: formData,
-      }
-    );
+    const response = await fetch(`${API_URL}/rooms/${params.roomId}/audio`, {
+      method: 'POST',
+      body: formData,
+    });
 
     const result = await response.json();
 

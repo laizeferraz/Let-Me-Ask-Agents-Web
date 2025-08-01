@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { API_URL } from '@/lib/api';
 import type { GetRoomQuestionsResponse } from './types/get-room-questions-response';
 import type { MarkQuestionAsAnsweredRequest } from './types/question-answered-request';
 import type { MarkQuestionAsAnsweredResponse } from './types/question-answered-response';
@@ -9,7 +10,7 @@ export function useMarkQuestionAsAnswered(roomId: string) {
   return useMutation({
     mutationFn: async (data: MarkQuestionAsAnsweredRequest) => {
       const response = await fetch(
-        `http://localhost:3333/rooms/${roomId}/questions/${data.questionId}/highlight`,
+        `${API_URL}/rooms/${roomId}/questions/${data.questionId}/highlight`,
         {
           method: 'PATCH',
           headers: {
